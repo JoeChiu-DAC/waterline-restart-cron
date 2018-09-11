@@ -7,12 +7,13 @@ now() {
 CMD=/opt/waterlinedata/bin/waterline
 LOG='/tmp/daily-waterline'-`date +"%Y%m%d"`.log
 STARTLOG='/tmp/start-waterline'-`date +"%Y%m%d"`.log
+ERRLOG='/tmp/error-waterline'-`date +"%Y%m%d"`.log
 service=waterline
 
 echo -ne $(now)"\r" >> $LOG
 $CMD serviceStop >> $LOG
 echo $(now) >> $STARTLOG
-$CMD serviceStart >> $STARTLOG
+$CMD serviceStart >> $STARTLOG 2>> $ERRLOG
 
 if (( $(ps -ef | grep -v grep | grep -v "su $service" | grep $service | wc -l) > 2 ))
 then

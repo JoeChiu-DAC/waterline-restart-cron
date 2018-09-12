@@ -4,6 +4,7 @@ now() {
 	date +"[%Y-%m-%d %H:%M:%S]"
 }
 
+SOLR=/opt/waterlinedata/bin/jettyRestart
 CMD=/opt/waterlinedata/bin/waterline
 LOG='/tmp/daily-waterline'-`date +"%Y%m%d"`.log
 STARTLOG='/tmp/start-waterline'-`date +"%Y%m%d"`.log
@@ -12,6 +13,8 @@ service=waterline
 
 echo -ne $(now)"\r" >> $LOG
 $CMD serviceStop >> $LOG
+echo $(now) >> $STARTLOG
+$SOLR >> $STARTLOG 2>> $ERRLOG
 echo $(now) >> $STARTLOG
 $CMD serviceStart >> $STARTLOG 2>> $ERRLOG
 

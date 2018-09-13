@@ -7,7 +7,6 @@ mth() {
 	date +"%Y%m"
 }
 
-SOLR=/opt/waterlinedata/bin/jettyRestart
 CMD=/opt/waterlinedata/bin/waterline
 LOG='/tmp/daily-waterline'-$(mth).log
 STARTLOG='/tmp/start-waterline'-$(mth).log
@@ -16,8 +15,7 @@ service=waterline
 
 echo -ne $(now)"\r" >> $LOG
 $CMD serviceStop >> $LOG
-echo $(now) >> $STARTLOG
-$SOLR >> $STARTLOG 2>> $ERRLOG
+
 echo $(now) >> $STARTLOG
 $CMD serviceStart >> $STARTLOG 2>> $ERRLOG
 

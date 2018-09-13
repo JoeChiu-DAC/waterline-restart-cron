@@ -3,12 +3,15 @@
 now() {
 	date +"[%Y-%m-%d %H:%M:%S]"
 }
+mth() {
+	date +"%Y%m"
+}
 
 SOLR=/opt/waterlinedata/bin/jettyRestart
 CMD=/opt/waterlinedata/bin/waterline
-LOG='/tmp/daily-waterline'-`date +"%Y%m%d"`.log
-STARTLOG='/tmp/start-waterline'-`date +"%Y%m%d"`.log
-ERRLOG='/tmp/error-waterline'-`date +"%Y%m%d"`.log
+LOG='/tmp/daily-waterline'-$(mth).log
+STARTLOG='/tmp/start-waterline'-$(mth).log
+ERRLOG='/tmp/error-waterline'-$(mth).log
 service=waterline
 
 echo -ne $(now)"\r" >> $LOG
